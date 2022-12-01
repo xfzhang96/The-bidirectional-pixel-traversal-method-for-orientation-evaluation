@@ -3,7 +3,7 @@
 
 % 该函数（get_curveofimage）接收图像数组和优化后的参数作为参数
 % This function (get_curveofimage) recevices the name of image and optimizded parameters
-function curveofimage = get_curveofimage_local (I,para2opt,showOrNot)
+function curveofimage = get_curveofimage (I,para2opt,showOrNot)
     % 参数初始化 parameter initalization
     %%----------------------------------------------------------------------------------------------
     angle = 179;                                                            % 旋转角度范围(0-angle)| rotated angle range (0-angle)
@@ -58,6 +58,5 @@ function curveofimage = get_curveofimage_local (I,para2opt,showOrNot)
         curveofimage(i) = orientation(270-i+1);
     end
     %%----------------------------------------------------------------------------------------------
-%     curveofimage = orientation;
 end
 

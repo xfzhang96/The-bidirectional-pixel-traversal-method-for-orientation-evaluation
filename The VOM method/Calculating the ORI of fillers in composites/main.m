@@ -30,17 +30,19 @@
 % The smoother the curve is, the higher the parameter stability and reliability will be. 
 % Therefore, it is necessary to optimize [low brightness value, high brightness value, threshold for binarization] 
 %%-----------------------------------------------------------------------------------------------------------------------------------------------
-% [optimal_parameter, fval,exitflag,output,population,scores] = pso(@Weight_fitness,3,[],[],[],[],[0,0.51,10],[0.49,1,80]);
+[optimal_parameter, fval,exitflag,output,population,scores] = pso(@Weight_fitness,3,[],[],[],[],[0,0.51,10],[0.49,1,80]);
 %%-----------------------------------------------------------------------------------------------------------------------------------------------
 
 
 %%-----------------------------------------------------------------------------------------------------------------------------------------------
 % 指定图像全路径|assign the full path of image
 filename = 'C:\Users\43816\Desktop\advanced materials文章评论\20：1.jpg';
+% 读图片文件| read image
+I = imread(filename);                                                   
 
 % 使用最佳参数计算取向度和取向角度|use the optimal parameter calculate the ORI and oriented angle
 % 获取竖直取向度曲线|obtain the curve of V-ORI
-curveofimage = get_curveofimage(filename,optimal_parameter,'yes');
+curveofimage = get_curveofimage(I,optimal_parameter,'yes');
 % 计算曲线粗糙度作为优化目标|calculate the roughness of curve as the optimal object
 roughness = sum((curveofimage-smooth(curveofimage,0.1,"lowess")').^2);
 

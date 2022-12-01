@@ -20,7 +20,7 @@ function orientation = calculate_ori(binary_img)
     for i = 1:m
         for j = 1:n
             if(binary_img(i,j) == white)
-                % y方向向上计算
+                % y方向向上计算|calculate towards the upward direction of vertical direction
                 try
                     for k = i+1:m
                         if(binary_img(k,j) == white)
@@ -37,8 +37,8 @@ function orientation = calculate_ori(binary_img)
                     boundary = boundary +1;     % 搜索到边缘|search to the edge
                 end
               
-% 由于对称性，可只计算一半，减少计算量，最后得出角度时，再考虑所有方向                
-%                 % y方向向下计算
+% 由于对称性，可只计算一半，减少计算量|Because of symmetry, only half of the calculation can be done to reduce the amount of calculation                
+%                 % y方向向下计算|calculate towards the downward direction of vertical direction
 %                 try
 %                     for k = i-1:-1:0
 %                         if(binary_img(k,j) == white)
@@ -55,7 +55,7 @@ function orientation = calculate_ori(binary_img)
 %                     boundary = boundary +1;     % 搜索到边缘|search to the edge
 %                 end
                 
-                % x方向向右计算
+                % x方向向右计算|calculate towards the rightward direction of horizontal direction
                 try
                     for l = j+1:n
                         if(binary_img(i,l) == white)
@@ -72,8 +72,8 @@ function orientation = calculate_ori(binary_img)
                     boundary = boundary +1;     % 搜索到边缘|search to the edge
                 end
                 
-% 由于对称性，可只计算一半，减少计算量，最后得出角度时，再考虑所有方向                
-%                 % x方向向左计算
+% 由于对称性，可只计算一半，减少计算量|Because of symmetry, only half of the calculation can be done to reduce the amount of calculation                
+%                 % x方向向左计算|calculate towards the leftward direction of horizontal direction
 %                 try
 %                     for l = j-1:-1:0
 %                         if(binary_img(i,l) == white)

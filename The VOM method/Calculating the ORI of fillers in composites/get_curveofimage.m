@@ -1,14 +1,13 @@
 % 这个文件用于获取输入图像旋转0°-179°后的竖直取向度
 % This file is used to obtain the V-ORI of the input image after rotated from 0° to 179° 
 
-% 该函数（get_curveofimage）接收图像名称和优化后的参数作为参数
+% 该函数（get_curveofimage）接收图像数组和优化后的参数作为参数
 % This function (get_curveofimage) recevices the name of image and optimizded parameters
-function curveofimage = get_curveofimage (filename,para2opt,showOrNot)
+function curveofimage = get_curveofimage (I,para2opt,showOrNot)
     % 参数初始化 parameter initalization
     %%----------------------------------------------------------------------------------------------
     angle = 179;                                                            % 旋转角度范围(0-angle)| rotated angle range (0-angle)
     orientation = zeros(1,180);                                             % 竖直取向度数组| matrix for the V-ORI
-    I = imread(filename);                                                   % 读图片文件| read image
     %%----------------------------------------------------------------------------------------------
     
     % 图像处理| picture processing

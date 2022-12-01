@@ -5,9 +5,9 @@
 % This function (Weight_fitness) recevices [low brightness, high brightness, threshold for binarization] as parameters
 function roughness = Weight_fitness(para2opt)
     % 指定图像全路径|assign the full path of image
-    filename = 'C:\Users\43816\Desktop\advanced materials文章评论\20：1.jpg';
+    filename = 'E:\学习资料\研究生\科研\3D磁打印\3D打印实验\orientation algorithm\取向度文章\测试文章\测试文章4\(a).jpeg';
     % 读图片文件| read image
-    I = imread(filename);                                                   
+    I = imread(filename); 
     % 获取竖直取向度曲线|obtain the curve of V-ORI
     curveofimage = get_curveofimage(I,para2opt,'no');
     % 计算曲线粗糙度作为优化目标|calculate the roughness of curve as the optimal object

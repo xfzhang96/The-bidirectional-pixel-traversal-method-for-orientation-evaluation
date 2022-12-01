@@ -37,14 +37,14 @@
 % The smoother the curve is, the higher the parameter stability and reliability will be. 
 % Therefore, it is necessary to optimize [low brightness value, high brightness value, threshold for binarization] 
 %%-----------------------------------------------------------------------------------------------------------------------------------------------
-% [optimal_parameter, fval,exitflag,output,population,scores] = pso(@Weight_fitness,3,[],[],[],[],[0,0.51,10],[0.49,1,80]);
+[optimal_parameter, fval,exitflag,output,population,scores] = pso(@Weight_fitness,3,[],[],[],[],[0,0.51,10],[0.49,1,80]);
 %%-----------------------------------------------------------------------------------------------------------------------------------------------
-optimal_parameter = [0,1,20];
 
 % 参数初始化 parameter initalization
 %%-----------------------------------------------------------------------------------------------------------------------------------------------
 % 指定图像全路径|assign the full path of image
 filename = 'E:\学习资料\研究生\科研\3D磁打印\3D打印实验\orientation algorithm\取向度文章\测试文章\测试文章4\(a).jpeg';
+% 读图片文件| read image
 I = imread(filename);
 I = im2gray(I);                                         % 将图像转为灰度图| convert the image to grayscale
 I = im2double(I);                                       % 将图像转double类型| convert the image to double type
@@ -56,7 +56,7 @@ avenum_y = 20;                                          % 横向等分的数量|
 % .................................................................
 [m,n] = size(I_ordered);   
 img = zeros(m/avenum_x,n/avenum_y,avenum_x,avenum_y);   % 用于记录分出的图像块| used to record the image blocks which has been extracted
-ori_dir = zeros(2,avenum_x,avenum_y);                   % 三维数组，ori_dir(1,::)代表取向度 ori_dir(1,::)代表取向方向 | Three-dimensional array, ori_dir(1,::) represents the ORI and ori_dir(1,::) represents the oriented angle
+ori_dir = zeros(2,avenum_x,avenum_y);                   % 三维数组，ori_dir(1,::)代表取向度 ori_dir(2,::)代表取向方向 | Three-dimensional array, ori_dir(1,::) represents the ORI and ori_dir(1,::) represents the oriented angle
 %%-----------------------------------------------------------------------------------------------------------------------------------------------
 
 % 提取图像块|extract image blocks
@@ -105,23 +105,23 @@ plotarrow(m,n,avenum_x,avenum_y,ori_dir);
 function plotarrow = plotarrow(m,n,avenum_x,avenum_y,ori_dir) %#ok<STOUT>
     for i = 1:1:avenum_x
         for j = 1:1:avenum_y
-            if((0<=tand(ori_dir(2,i,j))) && (tand(ori_dir(2,i,j))<(n/avenum_y)/(m/avenum_x)))
-                ar = annotation('arrow',[(j-0.5)/avenum_y-m*tand(ori_dir(2,i,j))/(2*avenum_x*n),(j-0.5)/avenum_y+m*tand(ori_dir(2,i,j))/(2*avenum_x*n)],[1-i/avenum_x,1-(i-1)/avenum_x]);
+            if((0<=tand(ori_dir(2,i,j))) && (tand(ori_dir(2,i,j))<=(m/avenum_x)/(n/avenum_y)))
+                ar = annotation('arrow',[(j-1)/avenum_y,j/avenum_y],[(1-(i-0.5)/avenum_x-tand(ori_dir(2,i,j))*n/(2*avenum_y*m)),(1-(i-0.5)/avenum_x+tand(ori_dir(2,i,j))*n/(2*avenum_y*m))]);
                 ar.Color = 'red';
                 ar.LineWidth = 2*ori_dir(1,i,j)/100;
                 ar.HeadWidth = 10*ori_dir(1,i,j)/100;
-            elseif((n/avenum_y)/(m/avenum_x)<=tand(ori_dir(2,i,j)))
-                ar = annotation('arrow',[(j-1)/avenum_y,j/avenum_y],[(1-(i-0.5)/avenum_x-n/(2*avenum_y*tand(ori_dir(2,i,j))*m)),(1-(i-0.5)/avenum_x+n/(2*avenum_y*tand(ori_dir(2,i,j))*m))]);
+            elseif(tand(ori_dir(2,i,j))>(m/avenum_x)/(n/avenum_y))
+                ar = annotation('arrow',[(j-0.5)/avenum_y-m/(2*avenum_x*n*tand(ori_dir(2,i,j))),(j-0.5)/avenum_y+m/(2*avenum_x*n*tand(ori_dir(2,i,j)))],[1-i/avenum_x,1-(i-1)/avenum_x]);
                 ar.Color = 'red';
                 ar.LineWidth = 2*ori_dir(1,i,j)/100;
                 ar.HeadWidth = 10*ori_dir(1,i,j)/100;
-            elseif(tand(ori_dir(2,i,j))<-(n/avenum_y)/(m/avenum_x))
-                ar = annotation('arrow',[(j-1)/avenum_y,j/avenum_y],[(1-(i-0.5)/avenum_x-n/(2*avenum_y*tand(ori_dir(2,i,j))*m)),(1-(i-0.5)/avenum_x+n/(2*avenum_y*tand(ori_dir(2,i,j))*m))]);
+            elseif(tand(ori_dir(2,i,j))<-(m/avenum_x)/(n/avenum_y))
+                ar = annotation('arrow',[(j-0.5)/avenum_y+m/(2*avenum_x*n*tand(ori_dir(2,i,j))),(j-0.5)/avenum_y-m/(2*avenum_x*n*tand(ori_dir(2,i,j)))],[1-(i-1)/avenum_x,1-i/avenum_x]);
                 ar.Color = 'red';
                 ar.LineWidth = 2*ori_dir(1,i,j)/100;
                 ar.HeadWidth = 10*ori_dir(1,i,j)/100;
-            elseif((-(n/avenum_y)/(m/avenum_x)<=tand(ori_dir(2,i,j))) && (tand(ori_dir(2,i,j))<0))
-                ar = annotation('arrow',[(j-0.5)/avenum_y+m*tand(ori_dir(2,i,j))/(2*avenum_x*n),(j-0.5)/avenum_y-m*tand(ori_dir(2,i,j))/(2*avenum_x*n)],[1-(i-1)/avenum_x,1-i/avenum_x]);
+            elseif((-(m/avenum_x)/(n/avenum_y)<=tand(ori_dir(2,i,j))) && (tand(ori_dir(2,i,j))<0))
+                ar = annotation('arrow',[(j-1)/avenum_y,j/avenum_y],[(1-(i-0.5)/avenum_x-tand(ori_dir(2,i,j))*n/(2*avenum_y*m)),(1-(i-0.5)/avenum_x+tand(ori_dir(2,i,j))*n/(2*avenum_y*m))]);
                 ar.Color = 'red';
                 ar.LineWidth = 2*ori_dir(1,i,j)/100;
                 ar.HeadWidth = 10*ori_dir(1,i,j)/100;
