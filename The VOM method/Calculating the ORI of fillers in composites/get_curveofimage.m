@@ -39,8 +39,24 @@ function curveofimage = get_curveofimage (filename,para2opt,showOrNot)
     else
         fprintf('Wrong!');
     end
-     %%----------------------------------------------------------------------------------------------
-
-    curveofimage = orientation;
+    %%----------------------------------------------------------------------------------------------
+     
+    % 角度更新| update angle
+    %%----------------------------------------------------------------------------------------------
+    % 注意：根据函数imrotate的定义以及竖直取向度的定义，此处的旋转角度为将图像 I 围绕其中心点逆时针方向旋转一定角度
+    % 因此orientation数组对应的下标所对代表的角度(rotated angle)为评估的取向方向和竖直向上方向的角度，
+    % 为便于理解，需要将其转换评估方向为与水平向右方向的夹角(transformed angle)
+    % Note: According to the definition of function imrotate and the definition of V-ORI,
+    % the rotated angle here is to rotate image I counterclockwise around its center point for a certain angle.
+    % Therefore, the rotated angle represented by the subscript of orintation array is angle of the evaluated direction and vertical direction.
+    % To facilitate understanding, the rotated angle needs to be transformed into a transformed angle, which is the angle of the evaluated direction and horizontal direction. 
+    curveofimage = zeros(1,180);                                            % 该数组下标代表tranformed angle|the subscript represent the tranformed angle in this array
+    for i = 1:1:90
+        curveofimage(i) = orientation(90-i+1);
+    end
+    for i = 91:1:180
+        curveofimage(i) = orientation(270-i+1);
+    end
+    %%----------------------------------------------------------------------------------------------
 end
 
