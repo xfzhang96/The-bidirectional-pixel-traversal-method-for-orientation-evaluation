@@ -37,7 +37,7 @@
 % The smoother the curve is, the higher the parameter stability and reliability will be. 
 % Therefore, it is necessary to optimize [low brightness value, high brightness value, threshold for binarization] 
 %%-----------------------------------------------------------------------------------------------------------------------------------------------
-[optimal_parameter, fval,exitflag,output,population,scores] = pso(@Weight_fitness,3,[],[],[],[],[0,0.51,10],[0.49,1,80]);
+% [optimal_parameter, fval,exitflag,output,population,scores] = pso(@Weight_fitness,3,[],[],[],[],[0,0.51,10],[0.49,1,80]);
 %%-----------------------------------------------------------------------------------------------------------------------------------------------
 
 % 参数初始化 parameter initalization
@@ -83,7 +83,7 @@ end
 %%-----------------------------------------------------------------------------------------------------------------------------------------------
 for i = 1:1:avenum_x
     for j = 1:1:avenum_y
-        curveofimage = get_curveofimage_local(img(:,:,i,j),optimal_parameter,"no");
+        curveofimage = get_curveofimage(img(:,:,i,j),optimal_parameter,"no");
         [ori_dir(1,i,j),ori_dir(2,i,j)] = max(curveofimage);
     end
 end
