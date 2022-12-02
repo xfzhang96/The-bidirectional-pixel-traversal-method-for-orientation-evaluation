@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<addOn>
+  <identifier>e56c8fed-4a80-11e4-9553-005056977bd0</identifier>
+  <displayType>Collection</displayType>
+  <translatedDisplayType>
+    <en_US>Collection</en_US>
+    <es_ES>Collection</es_ES>
+    <es_MX>Collection</es_MX>
+    <ja_JP>コレクション</ja_JP>
+    <ko_KR>컬렉션</ko_KR>
+    <zh_CN>集合</zh_CN>
+  </translatedDisplayType>
+  <name>Constrained Particle Swarm Optimization</name>
+  <author>Sam</author>
+  <version>1.31.4</version>
+  <downloadUrl>https://www.mathworks.com/matlabcentral/mlc-downloads/downloads/e56c8fed-4a80-11e4-9553-005056977bd0/c897bb5b-4481-4428-a9ae-5d8a8fd26db7/packages/zip?src=addons_ml_desktop_install&amp;profile_id=21648725&amp;license=40588452&amp;release_family=R2020b</downloadUrl>
+  <licenseUrl>https://addons.mathworks.com/registry/v1/e56c8fed-4a80-11e4-9553-005056977bd0/1.31.4.0/-/license</licenseUrl>
+  <previewImageUrl>https://www.mathworks.com/responsive_image/160/120/0/0/0/cache/matlabcentral/mlc-downloads/downloads/e56c8fed-4a80-11e4-9553-005056977bd0/c897bb5b-4481-4428-a9ae-5d8a8fd26db7/images/screenshot.jpg</previewImageUrl>
+  <releaseNotesUrl>https://www.mathworks.com/add-ons/e56c8fed-4a80-11e4-9553-005056977bd0/c897bb5b-4481-4428-a9ae-5d8a8fd26db7/releaseNotes</releaseNotesUrl>
+  <installationFolder>Collections</installationFolder>
+</addOn>
