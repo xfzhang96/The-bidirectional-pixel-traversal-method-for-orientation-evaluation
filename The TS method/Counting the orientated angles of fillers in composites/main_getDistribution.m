@@ -38,18 +38,25 @@
 % 指定图像全路径|assign the full path of image
 filename = 'E:\学习资料\研究生\科研\3D磁打印\3D打印实验\orientation algorithm\取向度文章\测试文章\取向度分布算法验证（修改了生成的范围大小，使得图像更清晰）\生成的大角度更多\生成随机矩形的导出图.png';
 % 读图片文件| read image
-I = imread(filename);                                                   
+I = imread(filename); 
 
-% 使用最佳参数计算取向度和取向角度|use the optimal parameter calculate the ORI and oriented angle
-% 获取竖直取向度曲线|obtain the curve of V-ORI
-curveofimage = get_curveofimage(I,optimal_parameter,'yes');
-% 计算曲线粗糙度作为优化目标|calculate the roughness of curve as the optimal object
-roughness = sum((curveofimage-smooth(curveofimage,0.1,"lowess")').^2);
 
-% 记录结果|record the results
-%%............................................................................................
-% 找竖直取向度曲线中的最大值作为图像取向度|find the maximum of V-ORI as the ORI
-[orientation_max, angle_max] = max(curveofimage);
-fprintf(append(datestr(clock),'：Parameter：[%6.4f,%6.4f,%6.2f]; ORI: %6.4f%%; oriented angle:%4.0f; roughness:%6.4f.\n'),optimal_parameter(1),optimal_parameter(2),optimal_parameter(3),orientation_max,angle_max,roughness);
-%%............................................................................................
-%%-----------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

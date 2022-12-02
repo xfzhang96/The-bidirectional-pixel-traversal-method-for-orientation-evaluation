@@ -29,8 +29,8 @@
 % To ensure divisible, please change the I_ordered size according to the number of bisections and the image array size 
 
 
-% 找最优参数  亮度低值--para2opt(1)  亮度高值--para2opt(2)  二值化阈值--para2opt(3)
-% find the optimal parameter   Low brightness value--para2opt(1)  High brightness value--para2opt(2)  threshold for binarization--para2opt(3) 
+% 找最优参数  亮度低值--parameters(1)  亮度高值--parameters(2)  二值化阈值--parameters(3)
+% find the optimal parameter   Low brightness value--parameters(1)  High brightness value--parameters(2)  threshold for binarization--parameters(3) 
 
 % 图像对比度、二值化阈值会影响竖直取向度曲线，曲线越光滑说明参数稳定性越高，可靠性越高，因此需要对【亮度低值，亮度高值，二值化阈值】进行优化
 % Image contrast and binarization threshold will affect the vertical orientation curve. 

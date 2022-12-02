@@ -3,10 +3,10 @@
 
 % 该函数（Binary_method）接收旋转后的图像信息和优化后的参数作为参数
 % This function (Binary_method) recevices the rotated image and optimized parameters
-function binary_img = Binary_method(img,para2opt)
+function binary_img = Binary_method(img,parameters)
     % 参数初始化 parameter initalization
     %%----------------------------------------------------------------------------------------------
-    img = imadjust(img,[para2opt(1), para2opt(2)],[]);              % 改变图像对比度| change the contrast of image
+    img = imadjust(img,[parameters(1), parameters(2)],[]);          % 改变图像对比度| change the contrast of image
     img = im2gray(img);                                             % 将图像转为灰度图| convert the image to grayscale
     img = im2double(img);                                           % 将图像转double类型| convert the image to double type
     [m,n]=size(img);                                                % 获取图像大小（行:m, 列:n）| obtain the size of image(row:m, cloumn:n)
@@ -43,7 +43,7 @@ function binary_img = Binary_method(img,para2opt)
     binary_img = im2uint8(smooth);          % 将均值滤波后的图像转换为uint8类型图像，即图像色彩范围[0,255]| This image is converted to uint8 type image which is image color range [0,255] 
     for i=1:m
         for j=1:n
-            if binary_img(i,j)>para2opt(3)  % 设置二值化的阈值为 para2opt(3)| Set the threshold for binarization to para2opt(3)
+            if binary_img(i,j)>parameters(3)  % 设置二值化的阈值为 parameters(3)| Set the threshold for binarization to parameters(3)
                 binary_img(i,j) = 255;      % 超过阈值的设为白块|set the pixel to be white when exceeds the threshold
             else
                 binary_img(i,j) = 0;        % 未超过阈值的设为黑块|set the pixel to be black when not exceeds the threshold

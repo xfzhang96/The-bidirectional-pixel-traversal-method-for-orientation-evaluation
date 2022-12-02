@@ -5,7 +5,7 @@
 % This function (Weight_fitness) recevices [low brightness, high brightness, threshold for binarization] as parameters
 function roughness = Weight_fitness(parameters)
     % 指定图像全路径|assign the full path of image
-    filename = 'E:\学习资料\研究生\科研\3D磁打印\3D打印实验\orientation algorithm\取向度文章\测试文章\测试文章4\(a).jpeg';
+    filename = 'E:\学习资料\研究生\科研\3D磁打印\3D打印实验\orientation algorithm\取向度文章\测试文章\取向度分布算法验证（修改了生成的范围大小，使得图像更清晰）\生成的大角度更多\生成随机矩形的导出图.png';
     % 读图片文件| read image
     I = imread(filename); 
     % 获取竖直取向度曲线|obtain the curve of V-ORI
