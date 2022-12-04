@@ -188,24 +188,25 @@ function get_angleofpixel = get_angleofpixel(I,optimal_parameter)
     end
     %===================================================================================================================================================================
 
-    % 统计横向连续的白块的各个白块对应的纵向的连续白块的数量
+    
+    % 横向连续块中每个像素块的纵向连续块数量搜索函数|Search function for the number of vertical continuous white pixels of each white pixel in the horizontal continuous white pixels 
     %===================================================================================================================================================================
     function [Z_block_num_P,cal_direction] = get_Z_continuous_block_of_H(binary_img,s_i,s_j,white)
-        global continuous_threshold;                                        % 使用全局变量
-        Z_block_num_P = 0;
+        global continuous_threshold;                                            % 使用全局变量|use global variable
+        Z_block_num_P = 0;                                                      % 纵向涉及的白色像素块数量|the number of white pixels involved in vertical direction
         boundary = 0;
         [m,n] = size(binary_img);
-        left_up_continuous_num = 0;                 %左边向上总数量
-        left_down_continuous_num = 0;               %左边向下总数量
-        right_up_continuous_num = 0;                %右边向上总数量
-        right_down_continuous_num = 0;              %右边向下总数量
+        left_up_continuous_num = 0;                                             % 左边向上总数量|the number of white pixels up on the left side
+        left_down_continuous_num = 0;                                           % 左边向下总数量|the number of white pixels down on the left side
+        right_up_continuous_num = 0;                                            % 右边向上总数量|the number of white pixels up the right side
+        right_down_continuous_num = 0;                                          % 右边向下总数量|the number of white pixels down the right side
 
-        %---------计算横向连续的白块右边各个白块对应的纵向的连续白块数量
+        % 计算横向连续的白块右边各个白块对应的纵向的连续白块数量|calculate the number of vertical continuous white pixels of each white pixel in horizontal continuous white pixels in the right of targeted white pixel
         try
             for k = s_j+1:1:n
                 if(binary_img(s_i,k) == white)
                     [continuous_block_y,up_continuous_num,down_continuous_num] = get_continuous_block_y(binary_img,s_i,k,white);
-                    Z_block_num_P = Z_block_num_P +  continuous_block_y;   % 统计横向连续白块的各个纵向的连续的数量
+                    Z_block_num_P = Z_block_num_P + continuous_block_y;        
                     right_up_continuous_num = right_up_continuous_num + up_continuous_num;
                     right_down_continuous_num = right_down_continuous_num + down_continuous_num;
                 else
@@ -214,13 +215,13 @@ function get_angleofpixel = get_angleofpixel(I,optimal_parameter)
             end
         catch ME
             boundary = boundary + 1;
-        end 
-        %---------计算横向连续的白块左边各个白块对应的纵向的连续白块数量
+        end
+        % 计算横向连续的白块左边各个白块对应的纵向的连续白块数量|calculate the number of vertical continuous white pixels of each white pixel in horizontal continuous white pixels in the left of targeted white pixel
         try
             for k = s_j-1:-1:1
                 if(binary_img(s_i,k) == white)
                     [continuous_block_y,up_continuous_num,down_continuous_num] = get_continuous_block_y(binary_img,s_i,k,white);
-                    Z_block_num_P = Z_block_num_P + continuous_block_y;    % 统计横向连续白块的各个纵向的连续的数量
+                    Z_block_num_P = Z_block_num_P + continuous_block_y; 
                     left_up_continuous_num = left_up_continuous_num + up_continuous_num;
                     left_down_continuous_num = left_down_continuous_num + down_continuous_num;
                 else
@@ -230,7 +231,7 @@ function get_angleofpixel = get_angleofpixel(I,optimal_parameter)
         catch ME
             boundary = boundary + 1;
         end 
-        %---------统计(i,j)处纵向的连续数量
+        % 统计(s_i,s_j)处纵向的连续数量|count the number of continuous white pixels of targeted (s_i, s_j) in the vertical direction
         [continuous_block_y,up_continuous_num,down_continuous_num] = get_continuous_block_y(binary_img,s_i,s_j,white);
         Z_block_num_P = Z_block_num_P + continuous_block_y;
 
@@ -240,14 +241,14 @@ function get_angleofpixel = get_angleofpixel(I,optimal_parameter)
         right_down_continuous_num = right_down_continuous_num + down_continuous_num; 
 
 
-        %做判断确定方向（1左上右下，2左下右上，3代表垂直，4代表水平，0无方向即黑色）
+        % 整体方向判断（1：左上右下，2：左下右上，3:垂直，4：水平，0：无方向即黑色）|judgment of whole direction of all involved white pixels(1: left up-->right down, 2: left down --> right up，3: vertical, 4:horizontal, 0: no direction meaning black pixel)
         if(left_up_continuous_num + right_down_continuous_num > left_down_continuous_num + right_up_continuous_num)
             cal_direction = 1;
         else
             cal_direction = 2;
         end
 
-        %用于判断是否大于连续阈值，大于连续阈值则定义为垂直
+        % 当大于连续阈值，则该白色像素定义为垂直|When greater than the continuous threshold, the white pixel is defined as vertical
         if(up_continuous_num + down_continuous_num > continuous_threshold)
             cal_direction = 3;
         end
@@ -255,24 +256,24 @@ function get_angleofpixel = get_angleofpixel(I,optimal_parameter)
     end
     %===================================================================================================================================================================
 
-    % 统计纵向连续的白块的各个白块对应的横向的连续白块的数量
+    % 纵向连续块中每个像素块的横向连续块数量搜索函数|Search function for the number of horizontal continuous white pixels of each white pixel in the vertical continuous white pixels 
     %===================================================================================================================================================================
     function [H_block_num_N,cal_direction] = get_H_continuous_block_of_Z(binary_img,s_i,s_j,white)
-        global continuous_threshold;                                        % 使用全局变量
-        H_block_num_N = 0;
+        global continuous_threshold;                                            % 使用全局变量|use global variable
+        H_block_num_N = 0;                                                      % 横向涉及的白色像素块数量|the number of white pixels involved in horizontal direction
         boundary = 0;
         [m,n] = size(binary_img);
-        up_left_continuous_num = 0;                     %上边向左总数量
-        up_right_continuous_num = 0;                    %上边向右总数量
-        down_left_continuous_num = 0;                   %下边向左总数量
-        down_right_continuous_num = 0;                     %下边向右总数量
+        up_left_continuous_num = 0;                                             % 上边向左总数量|the number of white pixels left on the up side
+        up_right_continuous_num = 0;                                            % 上边向右总数量|the number of white pixels right on the up side
+        down_left_continuous_num = 0;                                           % 下边向左总数量|the number of white pixels left on the down side
+        down_right_continuous_num = 0;                                          % 下边向右总数量|the number of white pixels right on the down side
 
-        %---------计算纵向连续的白块下边各个白块对应的横向的连续白块数量
+        % 计算纵向连续的白块下边各个白块对应的横向的连续白块数量|calculate the number of horizontal continuous white pixels of each white pixel in vertical continuous white pixels in the down of targeted white pixel
         try
             for k = s_i+1:1:m
                 if(binary_img(k,s_j) == white)
                     [continuous_block_x,left_continuous_num,right_continuous_num] = get_continuous_block_x(binary_img,k,s_j,white);
-                    H_block_num_N = H_block_num_N + continuous_block_x;    % 统计纵向连续的白块的各个白块对应的横向的连续白块的数量
+                    H_block_num_N = H_block_num_N + continuous_block_x; 
                     down_left_continuous_num = down_left_continuous_num + left_continuous_num;
                     down_right_continuous_num = down_right_continuous_num + right_continuous_num;
                 else
@@ -282,12 +283,12 @@ function get_angleofpixel = get_angleofpixel(I,optimal_parameter)
         catch ME
             boundary = boundary + 1;
         end 
-        %---------计算纵向连续的白块上边各个白块对应的横向的连续白块数量
+        % 计算纵向连续的白块上边各个白块对应的横向的连续白块数量|calculate the number of horizontal continuous white pixels of each white pixel in vertical continuous white pixels in the up of targeted white pixel
         try
             for k = s_i-1:-1:1
                 if(binary_img(k,s_j) == white)
                     [continuous_block_x,left_continuous_num,right_continuous_num] = get_continuous_block_x(binary_img,k,s_j,white);
-                    H_block_num_N = H_block_num_N + continuous_block_x;    % 统计纵向连续的白块的各个白块对应的横向的连续白块的数量
+                    H_block_num_N = H_block_num_N + continuous_block_x;
                     up_left_continuous_num = up_left_continuous_num + left_continuous_num;
                     up_right_continuous_num = up_right_continuous_num + right_continuous_num;
                 else
@@ -297,24 +298,24 @@ function get_angleofpixel = get_angleofpixel(I,optimal_parameter)
         catch ME
             boundary = boundary + 1;
         end 
-        %---------统计(i,j)处横向的连续数量
+        % 统计(s_i,s_j)处横向的连续数量|count the number of continuous white pixels of targeted (s_i, s_j) in the horizontal direction
         [continuous_block_x,left_continuous_num,right_continuous_num] = get_continuous_block_x(binary_img,s_i,s_j,white);
         H_block_num_N = H_block_num_N + continuous_block_x;
 
-        up_left_continuous_num = up_left_continuous_num + left_continuous_num;                     %上边向左总数量
-        up_right_continuous_num = up_right_continuous_num + right_continuous_num;                    %上边向右总数量
-        down_left_continuous_num = down_left_continuous_num + left_continuous_num;                   %下边向左总数量
-        down_right_continuous_num = down_right_continuous_num + right_continuous_num;                     %下边向右总数量
+        up_left_continuous_num = up_left_continuous_num + left_continuous_num;                    
+        up_right_continuous_num = up_right_continuous_num + right_continuous_num;                  
+        down_left_continuous_num = down_left_continuous_num + left_continuous_num;                   
+        down_right_continuous_num = down_right_continuous_num + right_continuous_num;                
 
 
-        %做判断确定方向（1左上右下，2左下右上，3代表垂直，4代表水平，0无方向即黑色）
+        % 整体方向判断（1：左上右下，2：左下右上，3:垂直，4：水平，0：无方向即黑色）|judgment of whole direction of all involved white pixels(1: left up-->right down, 2: left down --> right up，3: vertical, 4:horizontal, 0: no direction meaning black pixel)
         if(up_left_continuous_num + down_right_continuous_num > up_right_continuous_num + down_left_continuous_num)
             cal_direction = 1;
         else
             cal_direction = 2;
         end
 
-        %用于判断是否大于连续阈值，大于连续阈值则定义为水平
+        % 当大于连续阈值，则该白色像素定义为水平|When greater than the continuous threshold, the white pixel is defined as vertical
         if(left_continuous_num + right_continuous_num > continuous_threshold)
             cal_direction = 4;
         end
