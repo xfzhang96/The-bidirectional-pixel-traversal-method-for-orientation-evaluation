@@ -107,9 +107,7 @@ function get_angleofpixel = get_angleofpixel(I,optimal_parameter)
     % 统计角度|count angles of all pixel
     %%----------------------------------------------------------------------------------------------
     ori_matrix(1,1) = -1;                                                       % 变回来
-    [statistical_diagram, edges] = histcounts(ori_matrix,[-1:1:180]);           % 对不同角度分布进行统计
-    statistical_diagram(:,1) = [];                                              % 删除第一列 “-1”的数据
-    edges(:,1) = [];                                                            % 删除第一列 “-1”的数据
+    [statistical_diagram, ~] = histcounts(ori_matrix,[0:1:180]);           % 对不同角度分布进行统计
     figure;plot(statistical_diagram);                                           % 绘制统计图
     %%----------------------------------------------------------------------------------------------
 
@@ -192,7 +190,6 @@ function get_angleofpixel = get_angleofpixel(I,optimal_parameter)
     % 横向连续块中每个像素块的纵向连续块数量搜索函数|Search function for the number of vertical continuous white pixels of each white pixel in the horizontal continuous white pixels 
     %===================================================================================================================================================================
     function [Z_block_num_P,cal_direction] = get_Z_continuous_block_of_H(binary_img,s_i,s_j,white)
-        global continuous_threshold;                                            % 使用全局变量|use global variable
         Z_block_num_P = 0;                                                      % 纵向涉及的白色像素块数量|the number of white pixels involved in vertical direction
         boundary = 0;
         [m,n] = size(binary_img);
@@ -259,7 +256,6 @@ function get_angleofpixel = get_angleofpixel(I,optimal_parameter)
     % 纵向连续块中每个像素块的横向连续块数量搜索函数|Search function for the number of horizontal continuous white pixels of each white pixel in the vertical continuous white pixels 
     %===================================================================================================================================================================
     function [H_block_num_N,cal_direction] = get_H_continuous_block_of_Z(binary_img,s_i,s_j,white)
-        global continuous_threshold;                                            % 使用全局变量|use global variable
         H_block_num_N = 0;                                                      % 横向涉及的白色像素块数量|the number of white pixels involved in horizontal direction
         boundary = 0;
         [m,n] = size(binary_img);
