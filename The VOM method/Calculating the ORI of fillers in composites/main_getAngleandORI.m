@@ -30,13 +30,13 @@
 % The smoother the curve is, the higher the parameter stability and reliability will be. 
 % Therefore, it is necessary to optimize [low brightness value, high brightness value, threshold for binarization] 
 %%-----------------------------------------------------------------------------------------------------------------------------------------------
-[optimal_parameter, fval,exitflag,output,population,scores] = pso(@Weight_fitness,3,[],[],[],[],[0,0.51,10],[0.49,1,80]);
+% [optimal_parameter, fval,exitflag,output,population,scores] = pso(@Weight_fitness,3,[],[],[],[],[0,0.51,10],[0.49,1,80]);
 %%-----------------------------------------------------------------------------------------------------------------------------------------------
-
+optimal_parameter = [0,1,30];
 
 %%-----------------------------------------------------------------------------------------------------------------------------------------------
 % 指定图像全路径|assign the full path of image
-filename = 'E:\学习资料\研究生\科研\3D磁打印\3D打印实验\orientation algorithm\取向度文章\测试文章\取向度分布算法验证（修改了生成的范围大小，使得图像更清晰）\生成的大角度更多\生成随机矩形的导出图.png';
+filename = 'E:\学习资料\研究生\科研\3D磁打印\3D打印实验\orientation algorithm\取向度文章\测试文章\示例图片\image_example.tif';
 % 读图片文件| read image
 I = imread(filename);                                                   
 
