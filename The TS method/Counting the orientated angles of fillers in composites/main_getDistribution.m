@@ -30,16 +30,30 @@
 % The smoother the curve is, the higher the parameter stability and reliability will be. 
 % Therefore, it is necessary to optimize [low brightness value, high brightness value, threshold for binarization] 
 %%-----------------------------------------------------------------------------------------------------------------------------------------------
-[optimal_parameter, fval,exitflag,output,population,scores] = pso(@Weight_fitness,3,[],[],[],[],[0,0.51,10],[0.49,1,80]);
+% [optimal_parameter, fval,exitflag,output,population,scores] = pso(@Weight_fitness,3,[],[],[],[],[0,0.51,10],[0.49,1,80]);
 %%-----------------------------------------------------------------------------------------------------------------------------------------------
-
+optimal_parameter = [0.05,0.85,5];
 %%-----------------------------------------------------------------------------------------------------------------------------------------------
 % 指定图像全路径|assign the full path of image
-filename = 'E:\学习资料\研究生\科研\3D磁打印\3D打印实验\orientation algorithm\取向度文章\测试文章\示例图片\image_example.tif';
+filename = 'E:\学习资料\研究生\科研\3D磁打印\3D打印实验\orientation algorithm\取向度文章\测试文章\示例图片\512.TIF';
+% 根据the TS method 的验证,当颗粒去向角度为水平的时候评估更准确，为提高评估的准确度，需要将图像旋转至水平状态
+% According the verfication, when the oriented angle of fillers is tend to be horizontal, the evaluation is more accurate. Hence, the image need to be rotated to be oriented horizontally to improve the accuracy of evalutaion
+% The VOM method计算出来的取向角度|the oriented angle calculated by the VOM method
+oriented_angle = 83;
+% 计算应该旋转的角度|calculate the rotated angle according to the oriented angle
+rotated_angle = 180 - oriented_angle;
 % 读图片文件| read image
 I = imread(filename); 
+% 旋转图片|rotate image
+I_rotate = imrotate(I,rotated_angle,'bicubic','loose');                         % 获得旋转rotated_angle度后图像矩阵| obtain the image matrix after rotating rotated_angle 
+
 % 计算取向分布|calculate the distribution
-get_angleofpixel(I,optimal_parameter);
+angleofpixel = get_angleofpixel(I_rotate,optimal_parameter);
+
+% 计算完后，需要将计算的取向分布转换为旋转前图像对应的取向角度分布|after calculation, the distribution need to be converted the distribution before rotation
+
+
+
 
 
 

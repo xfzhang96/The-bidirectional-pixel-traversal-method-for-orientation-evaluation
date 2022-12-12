@@ -107,9 +107,11 @@ function get_angleofpixel = get_angleofpixel(I,optimal_parameter)
     % 统计角度|count angles of all pixel
     %%----------------------------------------------------------------------------------------------
     ori_matrix(1,1) = -1;                                                       % 变回来
-    [statistical_diagram, ~] = histcounts(ori_matrix,[0:1:180]);           % 对不同角度分布进行统计
+    [statistical_diagram, ~] = histcounts(ori_matrix,[0:1:180]);                % 对不同角度分布进行统计
     figure;plot(statistical_diagram);                                           % 绘制统计图
     %%----------------------------------------------------------------------------------------------
+    
+    get_angleofpixel = statistical_diagram;
 
 
 
