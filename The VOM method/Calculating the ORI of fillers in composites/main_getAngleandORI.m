@@ -36,7 +36,7 @@ optimal_parameter = [0.05,0.85,5];
 
 %%-----------------------------------------------------------------------------------------------------------------------------------------------
 % 指定图像全路径|assign the full path of image
-filename = 'E:\学习资料\研究生\科研\3D磁打印\3D打印实验\orientation algorithm\取向度文章\测试文章\示例图片\116 - 副本.TIF';
+filename = 'E:\学习资料\研究生\科研\3D磁打印\3D打印实验\orientation algorithm\取向度文章\测试文章\示例图片\512.TIF';
 % 读图片文件| read image
 I = imread(filename);                                                   
 

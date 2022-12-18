@@ -20,26 +20,6 @@ function curveofimage = get_curveofimage (I,parameters,showOrNot)
         % fprintf('No.%1.0f: 取向度 is %4.4f%%\n',i,orientation(i));        % 输出每次旋转后计算的结果| Output the results after each rotation 
     end
     %%----------------------------------------------------------------------------------------------
-    
-    % 是否展示旋转后结果|whether the results or not
-    %%----------------------------------------------------------------------------------------------
-    if(showOrNot == "yes")
-        % 数据处理| data processing
-        %%.................................................................................
-        [~, angle_max_sub] = max(orientation);                                  % 记录竖直取向度最大值的下标|record the subscript with the maximal ORI
-        angle_max = angle_max_sub - 1;                                          % 最大旋转角度是下标-1|the angle with the maximal ORI equals to subscript-1
-        % 展示结果| show results
-        I_rotate_max = imrotate(I,angle_max,'bicubic','loose');                 % 记录竖直取向度最大的旋转后的原图像|Record the original image after rotation with the maximum V-ORI
-        I_rotate_bin_max = Binary_method(I_rotate_max,parameters);              % 记录竖直取向度最大的旋转后二值化后的图像|Record the binarzation image after rotation with the maximum V-ORI
-        figure;imshow(I_rotate_max);title('initial image');
-        figure;imshow(I_rotate_bin_max);title('binarzation image');
-        figure;plot(orientation);                                               % 展示竖直取向度曲线|show the curve of V-ORI
-        %%................................................................................. 
-    elseif(showOrNot == "no")
-    else
-        fprintf('Wrong!');
-    end
-     %%----------------------------------------------------------------------------------------------
 
           
     % 角度更新| update angle
@@ -59,5 +39,24 @@ function curveofimage = get_curveofimage (I,parameters,showOrNot)
         curveofimage(i) = orientation(270-i+1);
     end
     %%----------------------------------------------------------------------------------------------
+    
+    % 是否展示旋转后结果|whether the results or not
+    %%----------------------------------------------------------------------------------------------
+    if(showOrNot == "yes")
+        % 数据处理| data processing
+        %%.................................................................................
+        [~, angle_max_sub] = max(curveofimage);                                  % 记录竖直取向度最大值的下标|record the subscript with the maximal ORI
+        % 展示结果| show results
+        I_rotate_max = imrotate(I,angle_max_sub,'bicubic','loose');                 % 记录竖直取向度最大的旋转后的原图像|Record the original image after rotation with the maximum V-ORI
+        I_rotate_bin_max = Binary_method(I_rotate_max,parameters);              % 记录竖直取向度最大的旋转后二值化后的图像|Record the binarzation image after rotation with the maximum V-ORI
+        figure;imshow(I_rotate_max);title('initial image');
+        figure;imshow(I_rotate_bin_max);title('binarzation image');
+        figure;plot(curveofimage);                                               % 展示竖直取向度曲线|show the curve of V-ORI
+        %%................................................................................. 
+    elseif(showOrNot == "no")
+    else
+        fprintf('Wrong!');
+    end
+     %%----------------------------------------------------------------------------------------------
 end
 
