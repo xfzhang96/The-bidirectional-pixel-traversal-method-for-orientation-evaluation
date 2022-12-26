@@ -29,6 +29,11 @@
 % Image contrast and binarization threshold will affect the vertical orientation curve. 
 % The smoother the curve is, the higher the parameter stability and reliability will be. 
 % Therefore, it is necessary to optimize [low brightness value, high brightness value, threshold for binarization] 
+
+% 优化算法获取到的最优参数optimal_parameter仅作参考基准，具体参数仍然需要人工调整
+% The optimal_parameter obtained from the optimization algorithm is only used as a reference. The specific parameter still need manaual adjustment.
+% 当几张图片对比时，需保证图片对比度亮度等相近，所选参数optimal_parameter相近
+% When comparing several images, please ensure that the contrast and brightness of the images are similar and that the selected parameter (optimal_parameter) is similar 
 %%-----------------------------------------------------------------------------------------------------------------------------------------------
 % [optimal_parameter, fval,exitflag,output,population,scores] = pso(@Weight_fitness,3,[],[],[],[],[0,0.51,10],[0.49,1,80]);
 %%-----------------------------------------------------------------------------------------------------------------------------------------------
