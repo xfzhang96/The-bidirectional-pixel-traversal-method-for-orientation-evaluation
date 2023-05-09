@@ -12,6 +12,7 @@ function binary_img = Binary_method(img,parameters)
     [m,n]=size(img);                                                % 获取图像大小（行:m, 列:n）| obtain the size of image(row:m, cloumn:n)
     log_margin = zeros(m,n);                                        % 初始化log_margin| init log_margin
     %%----------------------------------------------------------------------------------------------
+    
 
     
     % 图像处理| picture processing
@@ -29,13 +30,13 @@ function binary_img = Binary_method(img,parameters)
             log_margin(i,j) = -img(i-2,j)-img(i-1,j-1)-2*img(i-1,j)-img(i-1,j+1)-img(i,j+2)-2*img(i,j-1)+16*img(i,j)-2*img(i,j+1)-img(i,j+2)-img(i+1,j-1)-2*img(i+1,j)-img(i+1,j+1)-img(i+2,j);
         end
     end
-    %  figure;imshow(log_margin);title('Edge extraction with log operator');
+%      figure;imshow(log_margin);title('Edge extraction with log operator');
     %%......................................................................
 
     %%......................................................................
     % 第二次滤波| The second filtering
     smooth = imfilter(log_margin,fspecial('average',[3,3]),'replicate');
-    % figure;imshow(smooth);title('The second filtering');
+%     figure;imshow(smooth);title('The second filtering');
     %%......................................................................
     
     %%......................................................................   
@@ -50,7 +51,7 @@ function binary_img = Binary_method(img,parameters)
             end
         end
     end
-    % figure;imshow(binary_img);title('binarization image');
+%     figure;imshow(binary_img);title('binarization image');
     %%......................................................................   
     %%----------------------------------------------------------------------------------------------
 

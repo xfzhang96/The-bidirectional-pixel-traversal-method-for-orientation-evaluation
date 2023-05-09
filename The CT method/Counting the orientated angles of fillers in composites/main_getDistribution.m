@@ -37,14 +37,14 @@
 %%-----------------------------------------------------------------------------------------------------------------------------------------------
 % [optimal_parameter, fval,exitflag,output,population,scores] = pso(@Weight_fitness,3,[],[],[],[],[0,0.51,10],[0.49,1,80]);
 %%-----------------------------------------------------------------------------------------------------------------------------------------------
-optimal_parameter = [0.05,0.85,5];
+optimal_parameter = [0.05,0.9,30];
 %%-----------------------------------------------------------------------------------------------------------------------------------------------
 % 指定图像全路径|assign the full path of image
-filename = 'E:\学习资料\研究生\科研\3D磁打印\3D打印实验\orientation algorithm\取向度文章\测试文章\示例图片\512.TIF';
+filename = 'C:\Users\43816\Desktop\102.TIF';
 % 根据the TS method 的验证,当颗粒去向角度为水平的时候评估更准确，为提高评估的准确度，需要将图像旋转至水平状态
 % According the verfication, when the oriented angle of fillers is tend to be horizontal, the evaluation is more accurate. Hence, the image need to be rotated to be oriented horizontally to improve the accuracy of evalutaion
 % The VOM method计算出来的取向角度|the oriented angle calculated by the VOM method
-oriented_angle = 83;
+oriented_angle = 180;
 % 计算应该旋转的角度|calculate the rotated angle according to the oriented angle
 rotated_angle = 180 - oriented_angle;
 % 读图片文件| read image
