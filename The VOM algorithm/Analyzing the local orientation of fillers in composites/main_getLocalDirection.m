@@ -49,16 +49,16 @@ optimal_parameter = [0.05,0.85,5];
 % 参数初始化 parameter initalization
 %%-----------------------------------------------------------------------------------------------------------------------------------------------
 % 指定图像全路径|assign the full path of image
-filename = 'E:\学习资料\研究生\科研\3D磁打印\3D打印实验\orientation algorithm\取向度文章\测试文章\示例图片\116.TIF';
+filename = 'E:\学习资料\研究生\科研\3D磁打印\3D打印实验\3D打印构建任意通道热界面材料\算法计算取向\2-01.TIF';
 % 读图片文件| read image
 I = imread(filename);
 I = im2gray(I);                                         % 将图像转为灰度图| convert the image to grayscale
 I = im2double(I);                                       % 将图像转double类型| convert the image to double type
 % 需要根据不同的图修改|need modify according to different images
 % .................................................................
-I_ordered = I(1:840,1:1400);                             % 记录规整后的图像| record the ordered image
-avenum_x = 20;                                          % 纵向等分的数量| the number of image block in vertical direction
-avenum_y = 20;                                          % 横向等分的数量| the number of image block in horizontal direction
+I_ordered = I(1:960,1:1410);                             % 记录规整后的图像| record the ordered image
+avenum_x = 30;                                          % 纵向等分的数量| the number of image block in vertical direction
+avenum_y = 30;                                          % 横向等分的数量| the number of image block in horizontal direction
 % .................................................................
 [m,n] = size(I_ordered);   
 img = zeros(m/avenum_x,n/avenum_y,avenum_x,avenum_y);   % 用于记录分出的图像块| used to record the image blocks which has been extracted

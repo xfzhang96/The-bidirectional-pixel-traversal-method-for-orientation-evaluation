@@ -46,8 +46,13 @@ function curveofimage = get_curveofimage (I,parameters,showOrNot)
         % 数据处理| data processing
         %%.................................................................................
         [~, angle_max_sub] = max(curveofimage);                                  % 记录竖直取向度最大值的下标|record the subscript with the maximal ORI
+        if angle_max_sub < 90                                                       % 转换为旋转角度
+            angle_rotate = 90-angle_max_sub;
+        else
+            angle_rotate = 270-angle_max_sub;
+        end
         % 展示结果| show results
-        I_rotate_max = imrotate(I,angle_max_sub,'bicubic','loose');                 % 记录竖直取向度最大的旋转后的原图像|Record the original image after rotation with the maximum V-ORI
+        I_rotate_max = imrotate(I,angle_rotate,'bicubic','loose');                 % 记录竖直取向度最大的旋转后的原图像|Record the original image after rotation with the maximum V-ORI
         I_rotate_bin_max = Binary_method(I_rotate_max,parameters);              % 记录竖直取向度最大的旋转后二值化后的图像|Record the binarzation image after rotation with the maximum V-ORI
         figure;imshow(I_rotate_max);title('initial image');
         figure;imshow(I_rotate_bin_max);title('binarzation image');
